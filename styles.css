@@ -14,12 +14,24 @@ h1, h2 {
     color: #ECF0F1;
 }
 
-section {
+/* First version for the section elements */
+/* section {
     background-color: #34495E;
     padding: 15px;
     margin-bottom: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+*/
+
+section {
+    background-color: #34495E;
+    padding: 15px;
+    margin: 0 auto;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 50%;
 }
 
 h2 {
