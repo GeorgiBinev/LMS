@@ -37,6 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
         books.forEach(book => {
             const li = document.createElement('li');
             li.textContent = `${book.id}. ${book.title} by ${book.author}`;
+            li.style.color = '#ECF0F1';
             if (book.isAvailable) {
                 const borrowButton = document.createElement('button');
                 borrowButton.textContent = 'Borrow';
@@ -58,14 +59,27 @@ document.addEventListener('DOMContentLoaded', () => {
         users.forEach(user => {
             const li = document.createElement('li');
             li.textContent = `${user.id}. ${user.name}`;
-            user.borrowedBooks.forEach(bookId => {
-                const book = books.find(b => b.id === bookId);
-                li.textContent += ` - Borrowed: ${book.title}`;
-                const returnButton = document.createElement('button');
-                returnButton.textContent = 'Return';
-                returnButton.addEventListener('click', () => returnBook(user.id, book.id));
-                li.appendChild(returnButton);
-            });
+            li.style.color = '#ECF0F1';
+            
+            if (user.borrowedBooks.length > 0) {
+                const ol = document.createElement('ol');
+                user.borrowedBooks.forEach(bookId => {
+
+                    const book = books.find(b => b.id === bookId);
+
+                    const borrowedLi = document.createElement('li');
+                    borrowedLi.textContent = book.title;
+                    borrowedLi.style.color = '#ECF0F1';
+
+                    const returnButton = document.createElement('button');
+                    returnButton.textContent = 'Return';
+                    returnButton.addEventListener('click', () => returnBook(user.id, book.id));
+                    borrowedLi.appendChild(returnButton);
+
+                    ol.appendChild(borrowedLi);
+                });
+                li.appendChild(ol);
+            }
             userList.appendChild(li);
         });
     }
@@ -81,7 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
             displayBooks();
             displayUsers();
         } else {
-            alert("Invalid User ID");
+            alert("Invalid User ID!");
         }
     }
 
