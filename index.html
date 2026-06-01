@@ -1,40 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="icon.jpg" />
-    <title>Simple Library Management System</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CIS ITSM Exam</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <header>
-        <h1>Simple Library Management System</h1>
-    </header>
-    
-    <section id="add-book">
-        <h2>Add New Book</h2>
-        <input type="text" id="book-title" placeholder="Book Title">
-        <input type="text" id="book-author" placeholder="Book Author">
-        <button id="add-book-button">Add Book</button>
-    </section>
+  <div class="container">
+    <h1>CIS ITSM ServiceNow Exam</h1>
 
-    <section id="add-user">
-        <h2>Add New User</h2>
-        <input type="text" id="user-name" placeholder="User Name">
-        <button id="add-user-button">Add User</button>
-    </section>
+    <div id="home-screen">
+      <h2>Select Topic</h2>
 
-    <section id="available-books">
-        <h2>Our Books</h2>
-        <ul id="book-list"></ul>
-    </section>
+      <div class="topics">
+        <button onclick="startQuiz('incident')">Incident Management</button>
+        <button onclick="startQuiz('problem')">Problem Management</button>
+        <button onclick="startQuiz('change')">Change Management</button>
+        <button onclick="startQuiz('spm')">SPM</button>
+        <button onclick="startQuiz('cmdb')">CMDB</button>
+        <button onclick="startQuiz('service-catalog')">Service Catalog</button>
+        <button onclick="startQuiz('all')">ALL</button>
+      </div>
+    </div>
 
-    <section id="users">
-        <h2>Users</h2>
-        <ul id="user-list"></ul>
-    </section>
+    <div id="quiz-screen" class="hidden">
+      <div class="quiz-header">
+        <span id="question-counter"></span>
+        <span id="score"></span>
+      </div>
 
-    <script src="script.js"></script>
+      <div class="progress-bar">
+        <div id="progress"></div>
+      </div>
+
+      <h2 id="question"></h2>
+
+      <div id="question-type"></div>
+
+      <div id="options"></div>
+
+      <button id="next-btn">Next Question</button>
+    </div>
+
+    <div id="result-screen" class="hidden">
+      <h2>Quiz Finished</h2>
+      <h3 id="final-score"></h3>
+
+      <div id="results-review"></div>
+
+      <button onclick="goHome()">Back Home</button>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
 </body>
 </html>
