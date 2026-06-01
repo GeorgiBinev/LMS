@@ -41,12 +41,40 @@ const questionBank = {
       correctAnswers: [3],
       explanation: 'The incident_manager role is responsible for managing the incident process and its properties.',
       topic: 'Incident Management'
+    },
+    {
+      id: 4,
+      type: 'single',
+      question: 'Which of the following is the best way to categorize an Incident?',
+      options: [
+        'Category and Subcategory',
+        'Configuration Item and Service',
+        'Impact and Urgency',
+        'Business Service and Service Offering'
+      ],
+      correctAnswers: [0],
+      explanation: 'Category and Subcategory are the baseline method for high-level classification in ServiceNow.',
+      topic: 'Incident Management'
+    },
+    {
+      id: 5,
+      type: 'single',
+      question: 'What is the minimum role required to delete an Incident?',
+      options: [
+        'itil',
+        'incident_manager',
+        'itil_admin',
+        'admin'
+      ],
+      correctAnswers: [2],
+      explanation: 'The itil_admin role is typically required to perform deletion of incident records in the baseline configuration.',
+      topic: 'Incident Management'
     }
   ],
 
   problem: [
     {
-      id: 4,
+      id: 6,
       type: 'single',
       question: 'What table is the Problem table extended from?',
       options: [
@@ -59,12 +87,40 @@ const questionBank = {
       correctAnswers: [0],
       explanation: 'Like Incident and Change, the Problem table is an extension of the Task table.',
       topic: 'Problem Management'
+    },
+    {
+      id: 7,
+      type: 'single',
+      question: 'What state does a Problem record move to when a workaround is found but the root cause is not yet resolved?',
+      options: [
+        'Root Cause Analysis',
+        'Known Error',
+        'Fix in Progress',
+        'Resolved'
+      ],
+      correctAnswers: [0],
+      explanation: 'In the baseline, a Problem stays in Root Cause Analysis while the workaround is identified and documented.',
+      topic: 'Problem Management'
+    },
+    {
+      id: 8,
+      type: 'multiple',
+      question: 'Which records can be created from a Problem? (Choose 2)',
+      options: [
+        'Change Request',
+        'Knowledge Article',
+        'Project Record',
+        'Service Offering'
+      ],
+      correctAnswers: [0, 1],
+      explanation: 'A Change Request is used to fix the cause, and a Knowledge Article provides the workaround/known error details.',
+      topic: 'Problem Management'
     }
   ],
 
   change: [
     {
-      id: 5,
+      id: 9,
       type: 'single',
       question: 'In the baseline Change - Normal model, when the Change request goes to the Review state, what happens to the implementation and testing tasks, if they have not been closed?',
       options: [
@@ -78,7 +134,7 @@ const questionBank = {
       topic: 'Change Management'
     },
     {
-      id: 6,
+      id: 10,
       type: 'multiple',
       question: 'Which of the below fields are used in conflict detection for Change Request? (Choose 3)',
       options: [
@@ -91,12 +147,41 @@ const questionBank = {
       correctAnswers: [0, 2, 4],
       explanation: 'Conflict detection checks the CI and the Planned Start/End dates against other changes or maintenance windows.',
       topic: 'Change Management'
+    },
+    {
+      id: 11,
+      type: 'multiple',
+      question: 'Which of the following are types of Change? (Choose 3)',
+      options: [
+        'Emergency',
+        'Standard',
+        'Normal',
+        'Routine',
+        'Urgent'
+      ],
+      correctAnswers: [0, 1, 2],
+      explanation: 'ServiceNow baseline Change Management uses three types: Standard, Normal, and Emergency.',
+      topic: 'Change Management'
+    },
+    {
+      id: 12,
+      type: 'single',
+      question: 'What happens if a Change Request is rejected by the CAB?',
+      options: [
+        'The state changes to Canceled',
+        'The state changes to New',
+        'The state changes to On Hold',
+        'The state changes to Authorization'
+      ],
+      correctAnswers: [1],
+      explanation: 'If rejected, the Change Request reverts to the New/Draft state for modifications.',
+      topic: 'Change Management'
     }
   ],
 
   'service-catalog': [
     {
-      id: 7,
+      id: 13,
       type: 'single',
       question: 'What role is given to users that perform request fulfillment work, unless there are particular security requirements?',
       options: [
@@ -111,7 +196,7 @@ const questionBank = {
       topic: 'Service Catalog'
     },
     {
-      id: 8,
+      id: 14,
       type: 'single',
       question: 'For a Computer request, which record type would you use?',
       options: [
@@ -125,7 +210,7 @@ const questionBank = {
       topic: 'Service Catalog'
     },
     {
-      id: 9,
+      id: 15,
       type: 'multiple',
       question: 'How Catalog Items and Service Catalogs are related? (Choose 2)',
       options: [
@@ -137,12 +222,40 @@ const questionBank = {
       correctAnswers: [1, 2],
       explanation: 'ServiceNow allows a many-to-many relationship where items can appear in multiple catalogs.',
       topic: 'Service Catalog'
+    },
+    {
+      id: 16,
+      type: 'single',
+      question: 'What is a Record Producer?',
+      options: [
+        'A catalog item used to order a service',
+        'An interface used to create a task-based record',
+        'A tool to import data into the CMDB',
+        'A way to generate reports for the catalog'
+      ],
+      correctAnswers: [1],
+      explanation: 'Record Producers allow users to create records like Incidents directly from the Service Catalog.',
+      topic: 'Service Catalog'
+    },
+    {
+      id: 17,
+      type: 'single',
+      question: 'What is the purpose of an Order Guide?',
+      options: [
+        'To group multiple catalog items into one request',
+        'To track the shipping of hardware',
+        'To provide a list of all available services',
+        'To manage vendor contracts'
+      ],
+      correctAnswers: [0],
+      explanation: 'Order Guides group multiple items into a single request based on user input.',
+      topic: 'Service Catalog'
     }
   ],
 
   spm: [
     {
-      id: 10,
+      id: 18,
       type: 'single',
       question: 'What controls the movement of the state from Scoping to Awaiting Approval in Release Management?',
       options: [
@@ -157,8 +270,38 @@ const questionBank = {
     }
   ],
 
-  cmdb: [],
-  all: []
+  cmdb: [
+    {
+      id: 19,
+      type: 'single',
+      question: 'What is a Configuration Item (CI)?',
+      options: [
+        'Any tangible or intangible asset in the CMDB',
+        'Only hardware devices',
+        'A document describing a process',
+        'A user record in the system'
+      ],
+      correctAnswers: [0],
+      explanation: 'CIs can include hardware, software, services, or even business processes tracked in the CMDB.',
+      topic: 'CMDB'
+    },
+    {
+      id: 20,
+      type: 'single',
+      question: 'Which table is the base class for the CMDB?',
+      options: [
+        'cmdb_ci',
+        'cmdb_base',
+        'configuration_item',
+        'cmdb'
+      ],
+      correctAnswers: [0],
+      explanation: 'The Configuration Item [cmdb_ci] table is the base class for all CIs.',
+      topic: 'CMDB'
+    }
+  ],
+  
+  all: [] // This will be populated by your startQuiz function logic
 };
 
 let questions = [];
