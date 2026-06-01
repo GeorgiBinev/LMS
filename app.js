@@ -3,38 +3,161 @@ const questionBank = {
     {
       id: 1,
       type: 'single',
-      question: 'What is the primary goal of Incident Management?',
+      question: 'Client indicates that they would like a way to designate VIP callers on an incident form. How could you accomplish this?',
       options: [
-        'Restore service quickly',
-        'Manage assets',
-        'Create reports',
-        'Manage budgets'
+        'VIP Flag dictionary entry',
+        'VIP Flag field style',
+        'VIP Flash action script',
+        'VIP Flag reference decorator'
       ],
-      correctAnswers: [0],
-      explanation: 'Incident Management restores normal service operation quickly.',
+      correctAnswers: [1],
+      explanation: 'Field styles are used to change the appearance of fields, such as adding a VIP icon or color next to a caller name.',
       topic: 'Incident Management'
     },
     {
       id: 2,
-      type: 'multiple',
-      question: 'Which are characteristics of a Major Incident?',
+      type: 'single',
+      question: 'From which table, is the Incident table extended?',
       options: [
-        'High business impact',
-        'Requires urgent resolution',
-        'Always low priority',
-        'Can involve executive communication'
+        'Task [sn_task]',
+        'Work [sn_work]',
+        'Task [task]',
+        'Ticket [ticket]'
       ],
-      correctAnswers: [0, 1, 3],
-      explanation: 'Major incidents are high-impact and require urgent handling.',
+      correctAnswers: [2],
+      explanation: 'The Incident table is a core ITSM table extended from the base Task [task] table.',
+      topic: 'Incident Management'
+    },
+    {
+      id: 3,
+      type: 'single',
+      question: '"Configure and manage Incident Management properties" Which role has the ability to do that?',
+      options: [
+        'itil_admin',
+        'incident_admin',
+        'itil',
+        'incident_manager'
+      ],
+      correctAnswers: [3],
+      explanation: 'The incident_manager role is responsible for managing the incident process and its properties.',
       topic: 'Incident Management'
     }
   ],
 
-  problem: [],
-  change: [],
-  spm: [],
+  problem: [
+    {
+      id: 4,
+      type: 'single',
+      question: 'What table is the Problem table extended from?',
+      options: [
+        'Task',
+        'Outage',
+        'Major Incident',
+        'Problem Task',
+        'Incident'
+      ],
+      correctAnswers: [0],
+      explanation: 'Like Incident and Change, the Problem table is an extension of the Task table.',
+      topic: 'Problem Management'
+    }
+  ],
+
+  change: [
+    {
+      id: 5,
+      type: 'single',
+      question: 'In the baseline Change - Normal model, when the Change request goes to the Review state, what happens to the implementation and testing tasks, if they have not been closed?',
+      options: [
+        'They are automatically canceled',
+        'They are automatically closed',
+        'They are automatically assigned to the Change assignee and closed',
+        'An error displays, requiring that the Tasks be closed before moving to Review'
+      ],
+      correctAnswers: [0],
+      explanation: 'In the standard state model, moving to Review will cancel any remaining open implementation tasks.',
+      topic: 'Change Management'
+    },
+    {
+      id: 6,
+      type: 'multiple',
+      question: 'Which of the below fields are used in conflict detection for Change Request? (Choose 3)',
+      options: [
+        'Planned end date',
+        'Risk',
+        'Planned start date',
+        'CI Business criticality',
+        'Configuration item'
+      ],
+      correctAnswers: [0, 2, 4],
+      explanation: 'Conflict detection checks the CI and the Planned Start/End dates against other changes or maintenance windows.',
+      topic: 'Change Management'
+    }
+  ],
+
+  'service-catalog': [
+    {
+      id: 7,
+      type: 'single',
+      question: 'What role is given to users that perform request fulfillment work, unless there are particular security requirements?',
+      options: [
+        'itil',
+        'catalog_fulfiller',
+        'task_worker',
+        'fulfiller',
+        'sc_fulfiller'
+      ],
+      correctAnswers: [0],
+      explanation: 'The itil role is the standard baseline role for performing work on tasks and requests.',
+      topic: 'Service Catalog'
+    },
+    {
+      id: 8,
+      type: 'single',
+      question: 'For a Computer request, which record type would you use?',
+      options: [
+        'Catalog Item',
+        'Order Guide',
+        'Record Producer',
+        'Content Item'
+      ],
+      correctAnswers: [0],
+      explanation: 'Standard hardware or software requests are typically built as Catalog Items.',
+      topic: 'Service Catalog'
+    },
+    {
+      id: 9,
+      type: 'multiple',
+      question: 'How Catalog Items and Service Catalogs are related? (Choose 2)',
+      options: [
+        'Access to catalog items is determined by the service catalog\'s assigned user criteria',
+        'A catalog item can be associated with one or more service catalogs',
+        'Service catalogs may contain multiple catalog items',
+        'A catalog item can only be associated with one service catalog'
+      ],
+      correctAnswers: [1, 2],
+      explanation: 'ServiceNow allows a many-to-many relationship where items can appear in multiple catalogs.',
+      topic: 'Service Catalog'
+    }
+  ],
+
+  spm: [
+    {
+      id: 10,
+      type: 'single',
+      question: 'What controls the movement of the state from Scoping to Awaiting Approval in Release Management?',
+      options: [
+        'Manual state selection',
+        'State model',
+        'Workflow',
+        'Flow'
+      ],
+      correctAnswers: [0],
+      explanation: 'Release Management often relies on manual state transitions during the scoping phase.',
+      topic: 'SPM'
+    }
+  ],
+
   cmdb: [],
-  'service-catalog': [],
   all: []
 };
 
