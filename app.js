@@ -534,17 +534,27 @@ const resultsReview = document.getElementById('results-review');
 const progressBar = document.getElementById('progress');
 const questionType = document.getElementById('question-type');
 
+const questionTopic =
+  document.getElementById('question-topic');
+
+const homeBtn =
+  document.getElementById('home-btn');
+
 function startQuiz(topic) {
+
   questions = [...questionBank[topic]];
 
   if (topic === 'all') {
+
     questions = [
+
       ...questionBank.incident,
       ...questionBank.problem,
       ...questionBank.change,
       ...questionBank.spm,
       ...questionBank.cmdb,
       ...questionBank['service-catalog']
+
     ];
   }
 
@@ -556,59 +566,124 @@ function startQuiz(topic) {
 
   homeScreen.classList.add('hidden');
   resultScreen.classList.add('hidden');
+
   quizScreen.classList.remove('hidden');
 
   showQuestion();
 }
 
 function showQuestion() {
-  const question = questions[currentQuestionIndex];
 
-  questionCounter.textContent = `Question ${currentQuestionIndex + 1} / ${questions.length}`;
-  scoreText.textContent = `Score: ${score}`;
-  questionText.textContent = question.question;
+  const question =
+    questions[currentQuestionIndex];
 
-  const progress = (currentQuestionIndex / questions.length) * 100;
+  questionCounter.textContent =
+    `Question ${currentQuestionIndex + 1} / ${questions.length}`;
+
+  scoreText.textContent =
+    `Score: ${score}`;
+
+  questionText.textContent =
+    question.question;
+
+  questionTopic.textContent =
+    question.topic;
+
+  const progress =
+    ((currentQuestionIndex + 1) / questions.length) * 100;
+
   progressBar.style.width = `${progress}%`;
 
   optionsContainer.innerHTML = '';
 
   if (question.type === 'multiple') {
-    questionType.textContent = 'Select ALL correct answers';
+
+    questionType.textContent =
+      'Select ALL correct answers';
+
   } else {
-    questionType.textContent = 'Select ONE correct answer';
+
+    questionType.textContent =
+      'Select ONE correct answer';
   }
 
   question.options.forEach((option, index) => {
+
     const div = document.createElement('div');
+
     div.classList.add('option');
 
     const input = document.createElement('input');
-    input.type = question.type === 'multiple' ? 'checkbox' : 'radio';
+
+    input.type =
+      question.type === 'multiple'
+        ? 'checkbox'
+        : 'radio';
+
     input.name = 'option';
+
     input.value = index;
 
     const label = document.createElement('label');
+
     label.textContent = option;
 
     div.appendChild(input);
     div.appendChild(label);
+
+    div.addEventListener('click', () => {
+
+      if (question.type === 'single') {
+
+        document
+          .querySelectorAll('.option')
+          .forEach(opt => {
+            opt.classList.remove('selected');
+          });
+
+        document
+          .querySelectorAll('input[name="option"]')
+          .forEach(inp => {
+            inp.checked = false;
+          });
+
+        input.checked = true;
+
+        div.classList.add('selected');
+
+      } else {
+
+        input.checked = !input.checked;
+
+        div.classList.toggle('selected');
+      }
+
+    });
 
     optionsContainer.appendChild(div);
   });
 }
 
 nextBtn.addEventListener('click', () => {
-  const question = questions[currentQuestionIndex];
 
-  const selectedInputs = document.querySelectorAll('input[name="option"]:checked');
+  const question =
+    questions[currentQuestionIndex];
+
+  const selectedInputs =
+    document.querySelectorAll(
+      'input[name="option"]:checked'
+    );
 
   if (selectedInputs.length === 0) {
+
     alert('Please select at least one answer.');
+
     return;
   }
 
-  const selectedAnswers = Array.from(selectedInputs).map(input => Number(input.value));
+  const selectedAnswers =
+    Array.from(selectedInputs)
+      .map(input => Number(input.value));
 
   const isCorrect = arraysEqual(
     selectedAnswers.sort(),
@@ -620,51 +695,90 @@ nextBtn.addEventListener('click', () => {
   }
 
   userAnswers.push({
+
     question: question.question,
+
     selectedAnswers,
+
     correctAnswers: question.correctAnswers,
+
     options: question.options,
+
     explanation: question.explanation,
+
     isCorrect
+
   });
 
   currentQuestionIndex++;
 
   if (currentQuestionIndex < questions.length) {
+
     showQuestion();
+
   } else {
+
     showResults();
   }
 });
 
+homeBtn.addEventListener('click', goHome);
+
 function showResults() {
+
   quizScreen.classList.add('hidden');
+
   resultScreen.classList.remove('hidden');
 
-  finalScore.textContent = `You scored ${score} / ${questions.length}`;
+  finalScore.textContent =
+    `You scored ${score} / ${questions.length}`;
 
   resultsReview.innerHTML = '';
 
   userAnswers.forEach((item, index) => {
+
     const div = document.createElement('div');
+
     div.classList.add('review-item');
 
-    const selectedText = item.selectedAnswers
-      .map(i => item.options[i])
-      .join(', ');
+    const selectedText =
+      item.selectedAnswers
+        .map(i => item.options[i])
+        .join(', ');
 
-    const correctText = item.correctAnswers
-      .map(i => item.options[i])
-      .join(', ');
+    const correctText =
+      item.correctAnswers
+        .map(i => item.options[i])
+        .join(', ');
 
     div.innerHTML = `
-      <h4>${index + 1}. ${item.question}</h4>
+
+      <h4>
+        ${index + 1}. ${item.question}
+      </h4>
+
       <p class="${item.isCorrect ? 'correct' : 'wrong'}">
+
         ${item.isCorrect ? 'Correct' : 'Wrong'}
+
       </p>
-      <p><strong>Your answer:</strong> ${selectedText}</p>
-      <p><strong>Correct answer:</strong> ${correctText}</p>
-      <p class="explanation"><strong>Explanation:</strong> ${item.explanation}</p>
+
+      <p>
+        <strong>Your answer:</strong>
+        ${selectedText}
+      </p>
+
+      <p>
+        <strong>Correct answer:</strong>
+        ${correctText}
+      </p>
+
+      <p class="explanation">
+
+        <strong>Explanation:</strong>
+        ${item.explanation}
+
+      </p>
     `;
 
     resultsReview.appendChild(div);
@@ -672,14 +786,21 @@ function showResults() {
 }
 
 function goHome() {
+
+  quizScreen.classList.add('hidden');
+
   resultScreen.classList.add('hidden');
+
   homeScreen.classList.remove('hidden');
 }
 
 function arraysEqual(a, b) {
+
   return JSON.stringify(a) === JSON.stringify(b);
 }
 
 function shuffleArray(array) {
-  return [...array].sort(() => Math.random() - 0.5);
+
+  return [...array]
+    .sort(() => Math.random() - 0.5);
 }
