@@ -33,7 +33,7 @@ const questionBank = {
       question: 'Which of the following is the best way to categorize an Incident?',
       options: ['Category and Subcategory', 'Configuration Item and Service', 'Impact and Urgency', 'Business Service and Service Offering'],
       correctAnswers: [0],
-      explanation: 'Category and Subcategory are the baseline method for high-level classification in ServiceNow.',
+      explanation: 'Category and Subcategory are the baseline method for high-level classification.',
       topic: 'Incident Management'
     },
     {
@@ -98,6 +98,70 @@ const questionBank = {
       correctAnswers: [1],
       explanation: 'The sys_mod_count field tracks every time the record is saved.',
       topic: 'Incident Management'
+    },
+    {
+      id: 56,
+      type: 'single',
+      question: 'What is the default behavior when an incident is reopened by a user?',
+      options: ['State changes to New', 'State changes to In Progress', 'State changes to On Hold', 'A new Incident is created'],
+      correctAnswers: [1],
+      explanation: 'When an incident is reopened from a Resolved state, it baseline moves back to In Progress.',
+      topic: 'Incident Management'
+    },
+    {
+      id: 57,
+      type: 'multiple',
+      question: 'Which of the following can be used to create an Incident? (Choose 2)',
+      options: ['Inbound Email Action', 'Service Portal', 'Workflow', 'Scheduled Script'],
+      correctAnswers: [0, 1],
+      explanation: 'Incidents are commonly created via incoming emails or user submissions on the Service Portal.',
+      topic: 'Incident Management'
+    },
+    {
+      id: 66,
+      type: 'single',
+      question: 'Which field is used to link an Incident to a Major Incident?',
+      options: ['Parent', 'Parent Incident', 'Major Incident ID', 'Related Record'],
+      correctAnswers: [1],
+      explanation: 'The "Parent Incident" field is used to create a hierarchy where child incidents are linked to a Major Incident.',
+      topic: 'Incident Management'
+    },
+    {
+      id: 79,
+      type: 'single',
+      question: 'What is a characteristic of Major Incidents in the ServiceNow platform?',
+      options: [
+        'They only affect a single user.',
+        'They are resolved exclusively through manual processes.',
+        'They can only be created manually.',
+        'They are incidents of high impact and urgency affecting a large number of users.'
+      ],
+      correctAnswers: [3],
+      explanation: 'Major Incidents are defined by high impact and urgency, typically affecting a large number of users or critical business services.',
+      topic: 'Incident Management'
+    },
+    {
+      id: 84,
+      type: 'multiple',
+      question: 'Which incident management roles are activated by installing the ITSM Roles plugin named com.snc.itsm.roles? (Choose 2)',
+      options: ['sn_incident_read', 'sn_incident_write', 'incident_manager', 'itsm_incident_write', 'itsm_incident_read'],
+      correctAnswers: [0, 1],
+      explanation: 'The ITSM Roles plugin activates sn_incident_read and sn_incident_write to provide scoped read and write access using the sn_ prefix convention.',
+      topic: 'Incident Management'
+    },
+    {
+      id: 97,
+      type: 'multiple',
+      question: 'What happens to Business Duration and Duration when an incident is set to Resolved? (Choose 2)',
+      options: [
+        'Business Duration and Duration are cleared',
+        'Duration is calculated',
+        'Duration is paused',
+        'Business Duration is calculated'
+      ],
+      correctAnswers: [1, 3],
+      explanation: 'Upon resolution, ServiceNow calculates both the absolute Duration (total time) and the Business Duration (time within work hours).',
+      topic: 'Incident Management'
     }
   ],
 
@@ -157,21 +221,69 @@ const questionBank = {
       topic: 'Problem Management'
     },
     {
-      id: 18,
+      id: 58,
       type: 'single',
-      question: 'Which of the following is a key differentiator between a Problem and an Incident?',
-      options: ['Problems always have higher priority', 'Incidents are about service restoration; Problems are about identifying the root cause', 'Problems only involve hardware', 'Incidents cannot be related to CIs'],
-      correctAnswers: [1],
-      explanation: 'Incident Management focuses on restoration, while Problem Management focuses on root cause.',
+      question: 'What is the table name for Problem Tasks?',
+      options: ['problem_task', 'task_problem', 'sn_problem_task', 'problem_item'],
+      correctAnswers: [0],
+      explanation: 'Problem tasks are stored in the problem_task table.',
       topic: 'Problem Management'
     },
     {
-      id: 19,
+      id: 67,
       type: 'multiple',
-      question: 'What are valid ways to create a Problem record? (Choose 2)',
-      options: ['From an Incident record', 'From a Change Request', 'Automatically from the CMDB', 'Directly from the Problem application'],
-      correctAnswers: [0, 3],
-      explanation: 'Problems are usually identified from Incidents or created proactively.',
+      question: 'What are the two default types of Problem Tasks? (Choose 2)',
+      options: ['General', 'Root Cause Analysis', 'Fix', 'Workaround'],
+      correctAnswers: [1, 2],
+      explanation: 'ServiceNow provides "Root Cause Analysis" and "Fix" as baseline task types for problems.',
+      topic: 'Problem Management'
+    },
+    {
+      id: 68,
+      type: 'single',
+      question: 'Can a Problem record be closed if there are open Problem Tasks?',
+      options: ['Yes, tasks are canceled', 'Yes, tasks are closed', 'No, all tasks must be closed first', 'Only if the user is an admin'],
+      correctAnswers: [2],
+      explanation: 'To maintain data integrity, all related problem tasks must be closed before the parent Problem can be Closed.',
+      topic: 'Problem Management'
+    },
+    {
+      id: 76,
+      type: 'multiple',
+      question: 'Which of the following are steps in the Problem Management process lifecycle on the ServiceNow platform? (Choose 3)',
+      options: [
+        'Conduct customer satisfaction surveys post-resolution.',
+        'Conduct a root cause analysis (RCA).',
+        'Create a new problem record and document known details.',
+        'Confirm workaround or fix restores service for related incidents.',
+        'Allocate budget for preventive maintenance.'
+      ],
+      correctAnswers: [1, 2, 3],
+      explanation: 'The Problem Management standard lifecycle includes creating/documenting details, conducting RCA to uncover underlying causes, and confirming workarounds or fixes before closure.',
+      topic: 'Problem Management'
+    },
+    {
+      id: 90,
+      type: 'single',
+      question: 'Tester has submitted a bug report, because at no point in the Problem lifecycle, does the Create Known Error article link appear under Related Links. Also, they notice there is no Known Error knowledge base in the instance. What might be the cause of this?',
+      options: [
+        'The requirement was not in the stories',
+        'Tester is not impersonating Problem Coordinator',
+        'The customer did not pay the bill for Knowledge management',
+        'The sn_known_error_write role is required to see the Create Known Error article link',
+        'The Problem Management Best Practice - Madrid - Knowledge Integration plugin has not been activated'
+      ],
+      correctAnswers: [4],
+      explanation: 'The Problem Management Best Practice - Madrid - Knowledge Integration plugin enables the Create Known Error button and related functionality in the Problem lifecycle.',
+      topic: 'Problem Management'
+    },
+    {
+      id: 95,
+      type: 'single',
+      question: 'Which module should you use to locate and update the Priority Problem Lookup record based on this scenario: "Customer wants to change the way Priority on Problem records is calculated based on Impact and Urgency."',
+      options: ['Data Lookup Definitions', 'Priority Rule Definitions', 'Priority Matrix', 'Choice Lists'],
+      correctAnswers: [0],
+      explanation: 'Data Lookup Definitions is the module where rules like Priority Lookup (based on Impact and Urgency) are stored and updated.',
       topic: 'Problem Management'
     }
   ],
@@ -187,39 +299,12 @@ const questionBank = {
       topic: 'Change Management'
     },
     {
-      id: 21,
-      type: 'multiple',
-      question: 'Which of the below fields are used in conflict detection for Change Request? (Choose 3)',
-      options: ['Planned end date', 'Risk', 'Planned start date', 'CI Business criticality', 'Configuration item'],
-      correctAnswers: [0, 2, 4],
-      explanation: 'Conflict detection checks the CI and the Planned Start/End dates.',
-      topic: 'Change Management'
-    },
-    {
       id: 22,
       type: 'multiple',
       question: 'Which of the following are types of Change? (Choose 3)',
       options: ['Emergency', 'Standard', 'Normal', 'Routine', 'Urgent'],
       correctAnswers: [0, 1, 2],
       explanation: 'ServiceNow baseline Change Management uses three types: Standard, Normal, and Emergency.',
-      topic: 'Change Management'
-    },
-    {
-      id: 23,
-      type: 'single',
-      question: 'What happens if a Change Request is rejected by the CAB?',
-      options: ['The state changes to Canceled', 'The state changes to New', 'The state changes to On Hold', 'The state changes to Authorization'],
-      correctAnswers: [1],
-      explanation: 'If rejected, the Change Request reverts to the New/Draft state.',
-      topic: 'Change Management'
-    },
-    {
-      id: 24,
-      type: 'single',
-      question: 'Which table stores Change Request tasks?',
-      options: ['change_task', 'change_request_task', 'task_change', 'sc_task'],
-      correctAnswers: [0],
-      explanation: 'Change tasks are stored in the change_task table.',
       topic: 'Change Management'
     },
     {
@@ -232,53 +317,109 @@ const questionBank = {
       topic: 'Change Management'
     },
     {
-      id: 26,
+      id: 59,
       type: 'single',
-      question: 'Which tool allows Change Managers to manage Change Request schedules and detect conflicts visually?',
-      options: ['Change Calendar', 'Change Workbench', 'Timeline View', 'Conflict Map'],
-      correctAnswers: [1],
-      explanation: 'The Change Management Workbench provides a specialized interface for visualizing the process.',
+      question: 'What is the purpose of the CAB Workbench?',
+      options: ['To schedule CAB meetings', 'To automatically approve changes', 'To manage the CAB meeting agenda and review changes', 'To create new change models'],
+      correctAnswers: [2],
+      explanation: 'The CAB Workbench is used to manage CAB meetings, agendas, and the review process.',
       topic: 'Change Management'
     },
     {
-      id: 27,
+      id: 69,
       type: 'single',
-      question: 'Which table stores Change Request [change_request] approval records?',
-      options: ['sysapproval_approver', 'change_approval', 'task_approval', 'sys_approver'],
+      question: 'Which table stores the Standard Change Catalog templates?',
+      options: ['std_change_record_producer', 'std_change_template', 'change_template', 'std_change_master'],
       correctAnswers: [0],
-      explanation: 'All task-based approvals are stored in the sysapproval_approver table.',
+      explanation: 'Standard Change templates are stored as Record Producers in the std_change_record_producer table.',
       topic: 'Change Management'
     },
     {
-      id: 28,
+      id: 70,
       type: 'single',
-      question: 'Who can move a Change Request from "New" to "Assess"?',
-      options: ['The Change Requester', 'The Change Manager', 'The Assignee', 'Anyone with the itil role'],
-      correctAnswers: [0],
-      explanation: 'The user who creates the Change typically initiates the move to assessment.',
+      question: 'When is a "Post Implementation Review" (PIR) typically required?',
+      options: ['Standard Changes', 'All Changes', 'Normal and Emergency Changes', 'Only Canceled Changes'],
+      correctAnswers: [2],
+      explanation: 'PIRs are typically performed for Normal and Emergency changes during the Review state.',
       topic: 'Change Management'
     },
     {
-      id: 29,
+      id: 83,
       type: 'multiple',
-      question: 'Which of the following are valid Change Request states? (Choose 3)',
-      options: ['New', 'Assess', 'Authorize', 'Pending', 'Awaiting Fix'],
+      question: 'In support of Change Management which actions can a user with the itil_admin role take? (Choose 3)',
+      options: [
+        'Manage Risk Assessments',
+        'Delete Change',
+        'Manage Risk Conditions',
+        'Delete CAB Definition',
+        'Create and manage Approval Policies'
+      ],
       correctAnswers: [0, 1, 2],
-      explanation: 'Baseline Change states include New, Assess, and Authorize.',
+      explanation: 'An itil_admin has elevated rights within ITSM enabling them to manage Risk Assessments, manage Risk Conditions, and delete Change records.',
+      topic: 'Change Management'
+    },
+    {
+      id: 85,
+      type: 'multiple',
+      question: 'Which Change Task Types are available by default? (Choose 3)',
+      options: ['Review', 'Verification', 'Testing', 'Deployment', 'Planning'],
+      correctAnswers: [0, 2, 4],
+      explanation: 'ServiceNow Change Management provides Planning, Testing, and Review out of the box as baseline default Change Task types.',
+      topic: 'Change Management'
+    },
+    {
+      id: 89,
+      type: 'single',
+      question: 'What should you do to satisfy this requirement: "Customer wants to use the Normal change model, but wants to add another level of approval for changes relating to the Service, SAP Enterprise Services."',
+      options: [
+        'Add a new Decision to the Normal Change Workflow',
+        'Add a new Decision to the Normal Change Approval Policy',
+        'Add a new Policy Input to the Normal Change Approval Policy',
+        'Add a new Change Approval Policy'
+      ],
+      correctAnswers: [1],
+      explanation: 'Adding a new Decision to the existing Approval Policy allows a conditional branch that triggers the new approval requirement for Normal Changes.',
+      topic: 'Change Management'
+    },
+    {
+      id: 92,
+      type: 'single',
+      question: 'What is technical name of table that stores Change records?',
+      options: ['Change [change]', 'Change Request [rfc]', 'Change [task_change]', 'Change Request [change_request]', 'Change [change_task]'],
+      correctAnswers: [3],
+      explanation: 'Change Request [change_request] is the correct technical name for the table where Change records are stored in ServiceNow.',
+      topic: 'Change Management'
+    },
+    {
+      id: 94,
+      type: 'single',
+      question: 'Where can Change Manager define interval frequency for unauthorized change detection?',
+      options: ['Unauthorized Change Properties module', 'Event Processing Properties module', 'Unauthorized change flow', 'The ci.change.unplanned business rule'],
+      correctAnswers: [0],
+      explanation: 'The Unauthorized Change Properties module is where the Change Manager can configure the interval frequency for unauthorized change detection scheduling.',
+      topic: 'Change Management'
+    },
+    {
+      id: 96,
+      type: 'single',
+      question: 'Moving a Change Request to the Review state will automatically close all Change Tasks associated with it.',
+      options: ['True', 'False'],
+      correctAnswers: [1],
+      explanation: 'Moving to Review does not close tasks; in fact, it often cancels open tasks in the Normal model, but does not "automatically close" them as completed.',
+      topic: 'Change Management'
+    },
+    {
+      id: 103,
+      type: 'single',
+      question: 'When a Change Request is canceled, all open Change Tasks are:',
+      options: ['Canceled', 'Closed', 'Paused', 'Left open'],
+      correctAnswers: [0],
+      explanation: 'Standard behavior is to cancel all child tasks if the parent change is canceled.',
       topic: 'Change Management'
     }
   ],
 
   'service-catalog': [
-    {
-      id: 30,
-      type: 'single',
-      question: 'What role is given to users that perform request fulfillment work?',
-      options: ['itil', 'catalog_fulfiller', 'task_worker', 'fulfiller', 'sc_fulfiller'],
-      correctAnswers: [0],
-      explanation: 'The itil role is the standard baseline role for performing work on tasks.',
-      topic: 'Service Catalog'
-    },
     {
       id: 31,
       type: 'single',
@@ -286,15 +427,6 @@ const questionBank = {
       options: ['Catalog Item', 'Order Guide', 'Record Producer', 'Content Item'],
       correctAnswers: [0],
       explanation: 'Standard hardware requests are typically Catalog Items.',
-      topic: 'Service Catalog'
-    },
-    {
-      id: 32,
-      type: 'multiple',
-      question: 'How Catalog Items and Service Catalogs are related? (Choose 2)',
-      options: ['Access to catalog items is determined by user criteria', 'A catalog item can be associated with one or more service catalogs', 'Service catalogs may contain multiple catalog items', 'A catalog item can only be associated with one service catalog'],
-      correctAnswers: [1, 2],
-      explanation: 'ServiceNow allows a many-to-many relationship between items and catalogs.',
       topic: 'Service Catalog'
     },
     {
@@ -316,51 +448,6 @@ const questionBank = {
       topic: 'Service Catalog'
     },
     {
-      id: 35,
-      type: 'single',
-      question: 'Which of the following is used to restrict who can see a Service Catalog?',
-      options: ['User Criteria', 'ACLs', 'Business Rules', 'Dictionary Overrides'],
-      correctAnswers: [0],
-      explanation: 'User Criteria defines access to catalogs and items.',
-      topic: 'Service Catalog'
-    },
-    {
-      id: 36,
-      type: 'single',
-      question: 'In the Service Catalog, what is created when an order is submitted?',
-      options: ['REQ, RITM, and Task', 'INC and Task', 'CHG and RITM', 'PRB and Task'],
-      correctAnswers: [0],
-      explanation: 'Submitting an order creates a Request (REQ), Requested Item (RITM), and Catalog Task.',
-      topic: 'Service Catalog'
-    },
-    {
-      id: 37,
-      type: 'multiple',
-      question: 'Which of the following are types of Catalog Items? (Choose 2)',
-      options: ['Content Item', 'Order Guide', 'Service Level Agreement', 'UI Policy'],
-      correctAnswers: [0, 1],
-      explanation: 'Content Items and Order Guides are specific types of Service Catalog components.',
-      topic: 'Service Catalog'
-    },
-    {
-      id: 38,
-      type: 'single',
-      question: 'Which table stores the items within a single request?',
-      options: ['sc_req_item', 'sc_request', 'sc_task', 'sc_item'],
-      correctAnswers: [0],
-      explanation: 'The Requested Item [sc_req_item] table stores individual items (RITMs).',
-      topic: 'Service Catalog'
-    },
-    {
-      id: 39,
-      type: 'multiple',
-      question: 'What can be defined in a Service Catalog Category? (Choose 2)',
-      options: ['A title and description', 'Workflow for the items', 'An icon or image', 'Approval rules for the category'],
-      correctAnswers: [0, 2],
-      explanation: 'Categories use titles, descriptions, and icons for organization.',
-      topic: 'Service Catalog'
-    },
-    {
       id: 40,
       type: 'single',
       question: 'What is the purpose of the "Variable Set" in the Service Catalog?',
@@ -368,19 +455,109 @@ const questionBank = {
       correctAnswers: [1],
       explanation: 'Variable Sets allow you to reuse a collection of variables across many items.',
       topic: 'Service Catalog'
+    },
+    {
+      id: 71,
+      type: 'single',
+      question: 'Which Catalog component allows you to show/hide variables based on other variable values?',
+      options: ['Catalog UI Policy', 'Catalog Client Script', 'Variable Rule', 'Data Policy'],
+      correctAnswers: [0],
+      explanation: 'Catalog UI Policies are used to dynamically control the visibility and behavior of variables on a form.',
+      topic: 'Service Catalog'
+    },
+    {
+      id: 72,
+      type: 'multiple',
+      question: 'Which of the following are valid Service Catalog Request states? (Choose 2)',
+      options: ['Pending Approval', 'Approved', 'Fulfillment', 'Work in Progress'],
+      correctAnswers: [0, 1],
+      explanation: 'The Request [sc_request] record tracks high-level states like Pending Approval and Approved.',
+      topic: 'Service Catalog'
+    },
+    {
+      id: 77,
+      type: 'multiple',
+      question: 'When you are building out a service catalog, categorizing items helps users navigate and search in the catalog. Which of the roles would allow to create and maintain categories? (Choose 3)',
+      options: ['catalog_admin', 'catalog_manager', 'catalog_editor', 'catalog_builder_editor', 'itil_admin'],
+      correctAnswers: [0, 1, 2],
+      explanation: 'catalog_admin has full administrative rights over Service Catalog. catalog_manager and catalog_editor can manage and edit categories within their assigned scopes.',
+      topic: 'Service Catalog'
+    },
+    {
+      id: 78,
+      type: 'single',
+      question: 'When you are creating a catalog, which role specifies who can edit, update, and delete catalogs, categories, and catalog items?',
+      options: ['Manager', 'Contributors', 'Owner', 'Editors'],
+      correctAnswers: [0],
+      explanation: 'The Manager role on a catalog record provides full management rights to edit, update, and publish items or configurations within that catalog.',
+      topic: 'Service Catalog'
+    },
+    {
+      id: 80,
+      type: 'single',
+      question: 'What would you use to create a New Hire Employee request that would allow you to order your workstation and company mobile?',
+      options: ['Catalog Item', 'Content Item', 'Order Guide', 'Knowledge item', 'Record Producer'],
+      correctAnswers: [2],
+      explanation: 'An Order Guide bundles multiple baseline catalog items into a single unified guided request experience, which is perfect for scenarios like onboarding.',
+      topic: 'Service Catalog'
+    },
+    {
+      id: 82,
+      type: 'single',
+      question: 'What catalog property enables users to save their partially filled-out requests and submit them later?',
+      options: ['Enable wish list', 'Edit cart layout', 'User partial save', 'Enable cart save'],
+      correctAnswers: [0],
+      explanation: '"Enable wish list" is the standard OOTB property that lets catalog users save incomplete orders for future finalization.',
+      topic: 'Service Catalog'
+    },
+    {
+      id: 88,
+      type: 'single',
+      question: 'What would you use to capture data in a grid layout on the catalog item?',
+      options: ['Variable set', 'Grid variable', 'Cascade variable', 'Multi-row variable set'],
+      correctAnswers: [3],
+      explanation: 'A Multi-row Variable Set captures data in a grid/table layout, allowing users to provide multiple rows of structured data inside a single catalog item submission.',
+      topic: 'Service Catalog'
+    },
+    {
+      id: 91,
+      type: 'single',
+      question: 'Released in Quebec. What tool enables you to delegate the creation and maintenance of common and simple use case Catalog Items to business users?',
+      options: ['Catalog Builder', 'Catalog Designer', 'Catalog Wizard', 'Catalog Item Builder'],
+      correctAnswers: [0],
+      explanation: 'Catalog Builder provides a simple, guided user interface that enables delegated business users to create and maintain catalog items without needing full platform admin skills.',
+      topic: 'Service Catalog'
+    },
+    {
+      id: 93,
+      type: 'multiple',
+      question: 'Which objects on the Shopping Cart Widget can be displayed or hidden using Maintain Cart Layouts settings? (Choose 2)',
+      options: ['Requested by', 'Price', 'Shipping Address', 'Quantity'],
+      correctAnswers: [1, 3],
+      explanation: 'Price and Quantity are baseline standard elements of the shopping cart widget that can be shown or hidden via Maintain Cart Layouts configurations.',
+      topic: 'Service Catalog'
+    },
+    {
+      id: 98,
+      type: 'single',
+      question: 'In the Service Catalog, what represents the fulfiller-facing component of a requested item?',
+      options: ['Request [sc_request]', 'Requested Item [sc_req_item]', 'Catalog Task [sc_task]', 'Service Catalog [sc_catalog]'],
+      correctAnswers: [2],
+      explanation: 'The sc_task (Catalog Task) is the record assigned to fulfillers to perform the actual work of a request.',
+      topic: 'Service Catalog'
+    },
+    {
+      id: 100,
+      type: 'single',
+      question: 'A Catalog Item can have many associated Variable Sets.',
+      options: ['True', 'False'],
+      correctAnswers: [0],
+      explanation: 'Variable sets are designed to be reusable; a single item can include multiple sets of variables.',
+      topic: 'Service Catalog'
     }
   ],
 
   cmdb: [
-    {
-      id: 41,
-      type: 'single',
-      question: 'What is a Configuration Item (CI)?',
-      options: ['Any tangible or intangible asset in the CMDB', 'Only hardware devices', 'A document describing a process', 'A user record'],
-      correctAnswers: [0],
-      explanation: 'CIs can include hardware, software, services, or business processes.',
-      topic: 'CMDB'
-    },
     {
       id: 42,
       type: 'single',
@@ -388,24 +565,6 @@ const questionBank = {
       options: ['cmdb_ci', 'cmdb_base', 'configuration_item', 'cmdb'],
       correctAnswers: [0],
       explanation: 'The cmdb_ci table is the base class for all CIs.',
-      topic: 'CMDB'
-    },
-    {
-      id: 43,
-      type: 'single',
-      question: 'What is the name of the tool used to visualize CI relationships?',
-      options: ['Dependency Views', 'Relationship Mapper', 'CI Explorer', 'Schema Map'],
-      correctAnswers: [0],
-      explanation: 'Dependency Views provide a graphical representation of CI relationships.',
-      topic: 'CMDB'
-    },
-    {
-      id: 44,
-      type: 'multiple',
-      question: 'Which of the following are valid CI relationship types? (Choose 2)',
-      options: ['Runs on', 'Depends on', 'Extended from', 'Related to'],
-      correctAnswers: [0, 1],
-      explanation: 'Common relationship types include Runs on and Depends on.',
       topic: 'CMDB'
     },
     {
@@ -418,62 +577,35 @@ const questionBank = {
       topic: 'CMDB'
     },
     {
-      id: 46,
+      id: 73,
       type: 'single',
-      question: 'What is the purpose of the CI Class Manager?',
-      options: ['To manage the CI hierarchy and definitions', 'To create new CIs manually', 'To delete duplicate CIs', 'To track CI depreciation'],
+      question: 'What is a CI Class?',
+      options: ['A group of CIs sharing common attributes', 'A priority level for CIs', 'A CI relationship type', 'A list of users assigned to CIs'],
       correctAnswers: [0],
-      explanation: 'The CI Class Manager is the central location for managing the CMDB structure.',
+      explanation: 'A Class (table) represents a specific type of CI, like Linux Server or IP Switch.',
       topic: 'CMDB'
     },
     {
-      id: 47,
-      type: 'multiple',
-      question: 'What are the two main types of CI relationships? (Choose 2)',
-      options: ['Parent/Child', 'Upstream/Downstream', 'Source/Target', 'Class/Subclass'],
-      correctAnswers: [0, 1],
-      explanation: 'ServiceNow uses Parent/Child and Upstream/Downstream terminology.',
+      id: 86,
+      type: 'single',
+      question: 'To define a common grouping of configuration items such as all web servers in Chicago, what would you use?',
+      options: ['CI class', 'Dynamic CI group', 'Dependent group', 'CSDM component group'],
+      correctAnswers: [1],
+      explanation: 'Dynamic CI Groups use specific query criteria to dynamically cluster and manage configuration items based on filtered parameters (like location and type).',
       topic: 'CMDB'
     },
     {
-      id: 48,
+      id: 101,
       type: 'single',
-      question: 'Which table is used to store CI relationships?',
-      options: ['cmdb_rel_ci', 'cmdb_relationship', 'ci_relationship', 'sys_rel_ci'],
+      question: 'Which CMDB tool allows for the graphical representation of CI relationships?',
+      options: ['Dependency View', 'Schema Map', 'CI Explorer', 'Relation Mapper'],
       correctAnswers: [0],
-      explanation: 'All relationships between CIs are stored in the cmdb_rel_ci table.',
-      topic: 'CMDB'
-    },
-    {
-      id: 49,
-      type: 'single',
-      question: 'What is the relationship between a "Service" CI and a "Server" CI called?',
-      options: ['Depends on / Used by', 'Hosted on / Hosts', 'Runs on / Runs', 'Member of / Contains'],
-      correctAnswers: [0],
-      explanation: 'A Service typically "Depends on" the underlying infrastructure.',
+      explanation: 'The Dependency View provides an interactive map showing how CIs are upstream or downstream from each other.',
       topic: 'CMDB'
     }
   ],
 
   spm: [
-    {
-      id: 50,
-      type: 'single',
-      question: 'What controls the movement of the state from Scoping to Awaiting Approval in Release Management?',
-      options: ['Manual state selection', 'State model', 'Workflow', 'Flow'],
-      correctAnswers: [0],
-      explanation: 'Release Management often relies on manual state transitions during scoping.',
-      topic: 'SPM'
-    },
-    {
-      id: 51,
-      type: 'single',
-      question: 'Which application is used to define and manage Service Level Agreements?',
-      options: ['Service Level Management', 'SLA Manager', 'Task Management', 'Service Desk'],
-      correctAnswers: [0],
-      explanation: 'Service Level Management provides the tools to define SLA, OLA, and UC.',
-      topic: 'SPM'
-    },
     {
       id: 52,
       type: 'single',
@@ -484,31 +616,69 @@ const questionBank = {
       topic: 'SPM'
     },
     {
-      id: 53,
+      id: 74,
       type: 'single',
-      question: 'What is the primary difference between an SLA and an OLA?',
-      options: ['OLA is for internal groups, SLA is with the customer', 'SLA is internal, OLA is with a vendor', 'OLA has no financial penalty', 'SLA is only for Incidents'],
-      correctAnswers: [0],
-      explanation: 'SLAs are customer-facing; OLAs are between internal departments.',
+      question: 'What defines the time an SLA should stop counting?',
+      options: ['Start Condition', 'Stop Condition', 'Pause Condition', 'Reset Condition'],
+      correctAnswers: [1],
+      explanation: 'The Stop Condition defines the specific criteria that fulfill and complete the SLA.',
       topic: 'SPM'
     },
     {
-      id: 54,
-      type: 'single',
-      question: 'What is the purpose of the Benchmarks application?',
-      options: ['Compare your instance performance with others', 'Track user login times', 'Measure server CPU usage', 'Optimize database queries'],
-      correctAnswers: [0],
-      explanation: 'Benchmarks allow you to compare your ITSM KPIs against industry peers.',
+      id: 75,
+      type: 'multiple',
+      question: 'What are the three types of Service Level Agreements? (Choose 3)',
+      options: ['SLA', 'OLA', 'UC', 'PLA', 'Contract'],
+      correctAnswers: [0, 1, 2],
+      explanation: 'Service Level Management includes SLA (with customers), OLA (internal), and UC (with vendors).',
       topic: 'SPM'
     },
     {
-      id: 55,
-      type: 'single',
-      question: 'Which of the following is used to define the available hours for an SLA?',
-      options: ['SLA Schedule', 'Business Hours', 'Work Schedule', 'Time Profile'],
-      correctAnswers: [0],
-      explanation: 'Schedules define the time windows (e.g., 8-5 weekdays) that an SLA clock runs.',
+      id: 102,
+      type: 'multiple',
+      question: 'What are the three stages of an SLA lifecycle? (Choose 3)',
+      options: ['In progress', 'Completed', 'Paused', 'Breached', 'Canceled'],
+      correctAnswers: [0, 2, 4],
+      explanation: 'SLA records move through stages like In progress, Paused, Completed, and Canceled depending on record conditions.',
       topic: 'SPM'
+    }
+  ],
+
+  knowledge_management: [
+    {
+      id: 87,
+      type: 'single',
+      question: 'To view all of the search queries entered by users in the knowledge search where should an admin go?',
+      options: ['[kb_feedback] table', 'Knowledge queries application', 'Search logs application', '[kb_view] table'],
+      correctAnswers: [2],
+      explanation: 'The Search Logs application monitors and keeps structural logs of full search texts, counts, and click-through results utilized by system users.',
+      topic: 'Knowledge Management'
+    },
+    {
+      id: 99,
+      type: 'single',
+      question: 'Which table stores the search terms used in Knowledge Management?',
+      options: ['ts_query_kb', 'ts_word_kb', 'kb_search_log', 'kb_query_log'],
+      correctAnswers: [0],
+      explanation: 'ts_query_kb is the baseline table that logs knowledge-specific search queries.',
+      topic: 'Knowledge Management'
+    }
+  ],
+
+  platform_automation: [
+    {
+      id: 81,
+      type: 'single',
+      question: 'Which are the correct components of a Flow Action?',
+      options: [
+        'Inputs, Action Steps and Outputs',
+        'Processes, Subprocess and Action Steps',
+        'Indexes, Processes and Outputs',
+        'Inputs, Processes, Subprocesses, and Outputs'
+      ],
+      correctAnswers: [0],
+      explanation: 'A custom Flow Action in Flow Designer is fundamentally structured around Inputs (data passed in), Action Steps (the operational components/logic), and Outputs (the evaluated results sent back).',
+      topic: 'Platform Automation'
     }
   ],
 
